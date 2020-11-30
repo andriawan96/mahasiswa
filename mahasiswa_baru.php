@@ -45,16 +45,19 @@
  <html lang="en" dir="ltr">
    <head>
      <meta charset="utf-8">
-     <meta name="author" content="andriawan">
-     <meta name="keywords" content="universitas, mahasiswa, baru">
-     <meta name="description" content="penambahan mahasiswa">
+     <meta name="author" content="andriawan"/>
+     <meta name="keywords" content="universitas, mahasiswa, baru"/>
+     <meta name="description" content="penambahan mahasiswa"/>
      <title>Tabel | mahasiswa baru</title>
-     <link rel="icon" href="plus.png" type="image/png" >
+     <link rel="icon" href="plus.png" type="image/png" />
+     <link rel="stylesheet" href="style.css" type="text/css"/>
+
    </head>
    <body>
      <h1>Tabel Mahasiswa</h1>
      <table border="1">
        <tr>
+         <th>No</th>
          <th>NIM</th>
          <th>Nama</th>
          <th>Tempat Lahir</th>
@@ -63,6 +66,30 @@
          <th>Jurusan</th>
          <th>IPK</th>
        </tr>
+       <?php
+        //query menampilkan seluruh data tabel mahasaiswa baru
+        $query = "SELECT * FROM mahasiswa_baru";
+        $hasil_query = mysqli_query($koneksi,$query);
+
+        if (!$hasil_query) {
+          die("Data tidak di temukan");
+        }
+
+        //buat perulangan untuk element tabel dari data mahasiswa_baru
+        $i = 1;
+        while ($data = mysqli_fetch_assoc($hasil_query)) {
+          echo "<tr>";
+          echo "<td>".$i++."</td>";
+          echo "<td>$data[nim]</td>";
+          echo "<td>$data[nama]</td>";
+          echo "<td>$data[tempat_lahir]</td>";
+          echo "<td>$data[tanggal_lahir]</td>";
+          echo "<td>$data[fakultas]</td>";
+          echo "<td>$data[jurusan]</td>";
+          echo "<td>$data[ipk]</td>";
+          echo "</tr>";
+        }
+        ?>
      </table>
    </body>
  </html>
